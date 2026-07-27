@@ -1,0 +1,30 @@
+/'Codigo del diagrama de actividades'/
+
+@startuml registrar_nuevo_usuario
+
+title Registrar nuevo usuario      /'Coloca titulo en el diagrama'/
+
+start       /'Inicia Secuencia de actividades'/
+
+'Realiza las primeras 4 actividades
+:Seleccionar "Registrarse";
+:Mostrar formulario de registro;
+:Ingresar información;
+:Validar información;
+
+'Ciclo de consulta para garantizar una información valida
+while (¿Información válida?) is (No)
+
+    :Mostrar errores;
+    :Solicitar corrección de datos;
+    :Ingresar información;
+    :Validar información;
+
+endwhile (Sí)   /'Fin del ciclo'/
+
+'Con la informacion correcta se realizan las siguientes dos actividades
+:Registrar usuario;
+:Mostrar mensaje de éxito;
+stop    /'Sale del proceso de actividades'/
+
+@enduml

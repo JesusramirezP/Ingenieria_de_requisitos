@@ -1,0 +1,24 @@
+'Codigo para el diagrama de casos de usos "Recuperar contraseña"
+@startuml recuperar_contraseña
+
+left to right direction /'Organiza el diagrama de izquierda a derecha'/
+
+actor Usuario           /'Crea un actor llamado usuario'/
+
+'Se crea rectangulo con nombre "Sistema de acceso"
+rectangle "Sistema de Acceso" {
+
+    usecase "Recuperar contraseña" as recover_pass  /' Caso de uso para solicitar la recuperación de la contraseña'/
+    usecase "Enviar enlace de recuperación" as recover_link /' Caso de uso para enviar el enlace de recuperación al usuario'/
+    usecase "Restablecer contraseña" as reset_pass  /' Caso de uso para permitir al usuario establecer una nueva contraseña'/
+
+    ' Casos de uso incluidos en el proceso de recuperación de contraseña. 
+    recover_pass .> recover_link : <<include>>
+    recover_pass .> reset_pass : <<include>>
+
+}
+
+' El actor Usuario puede iniciar el caso de uso "Recuperar contraseña"
+Usuario --> recover_pass
+
+@enduml

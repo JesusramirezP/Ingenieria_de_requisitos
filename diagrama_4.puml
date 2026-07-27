@@ -1,0 +1,24 @@
+'Codigo para el diagrama de casos de usos "Registrar nuevo usuario"
+
+@startuml registrar_nuevo_usuario
+
+left to right direction     /'Organiza el diagrama de izquierda a derecha'/
+
+actor Usuario               /'Crea un actor llamado usuario'/
+
+'Se crea rectangulo con nombre "Sistema de acceso"
+rectangle "Sistema de Acceso" {
+
+    usecase "Registrar nuevo usuario" as new_user   /' Caso de uso para registrar nuevo usuario'/
+    usecase "Validar información" as check_info     /' Caso de uso para validar información'/
+    usecase "Registrar usuario" as register_user    /' Caso de uso para registrar usuario'/
+
+}
+
+Usuario --> new_user
+
+' Casos de uso incluidos en el proceso de registrar nuevo usuario.
+new_user .> check_info : <<include>>
+new_user .> register_user : <<include>>
+
+@enduml

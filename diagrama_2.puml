@@ -1,0 +1,45 @@
+'Codigo para el diagrama de secuencia de "Recuperar contraseña"
+@startuml recuperar_contraseña
+
+actor Usuario   /'Crea un actor llamado Usuario'/
+
+boundary "Interfaz de Acceso" as Interfaz /'Representa la interfaz de acceso'/
+control Sistema             /'Representa el sistema'/
+database "Base de Datos" as BD      /'Representa la base de datos'/
+collections "Servicio de Correo" as Correo      /'Representa el servicio de correo'/
+
+Usuario -> Interfaz : Selecciona "Recuperar contraseña"     /'Inicia secuencia'/
+Interfaz -> Sistema : Solicitar recuperación
+
+Sistema -> Interfaz : Mostrar formulario
+
+Usuario -> Interfaz : Ingresa correo electrónico
+Interfaz -> Sistema : Enviar correo ingresado
+
+Sistema -> BD : Validar correo
+BD --> Sistema : Correo válido
+
+Sistema -> Sistema : Generar enlace de recuperación
+
+Sistema -> Correo : Enviar enlace
+Correo --> Sistema : Confirmación de envío
+
+Sistema -> Interfaz : Informar que el enlace fue enviado
+
+Usuario -> Interfaz : Accede al enlace recibido
+Interfaz -> Sistema : Validar enlace
+
+Sistema -> Sistema : Verificar vigencia del enlace
+
+Sistema -> Interfaz : Mostrar formulario de nueva contraseña
+
+Usuario -> Interfaz : Ingresa nueva contraseña
+Interfaz -> Sistema : Solicitar cambio
+
+Sistema -> Sistema : Validar políticas de contraseña
+Sistema -> BD : Actualizar contraseña
+BD --> Sistema : Contraseña actualizada
+
+Sistema -> Interfaz : Mostrar mensaje de éxito      /'Finaliza secuencia'/
+
+@enduml

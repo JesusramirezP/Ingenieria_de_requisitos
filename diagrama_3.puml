@@ -1,0 +1,76 @@
+/'Codigo del diagrama de actividades'/
+@startuml recuperar_contraseña
+
+title Recuperar contraseña     /'Coloca titulo en el diagrama'/
+
+start  /'Inicia Secuencia de actividades'/
+
+'Realiza las primeras 4 actividades
+:Seleccionar "¿Recuperar contraseña?";
+:Mostrar formulario de recuperación;
+:Ingresar correo electrónico;
+:Validar correo electrónico;
+
+'Consulta si el correo ingresado esta registrado
+if (¿Correo registrado?) then (Sí)
+
+    'realiza las siguientes dos actividades
+    :Generar enlace de recuperación;
+    :Enviar enlace de recuperación;
+
+    'Consulta si el correo fue enviado correctamente
+    if (¿Correo enviado correctamente?) then (Sí)
+
+        'Realiza las siguientes tres actividades
+        :Mostrar mensaje de confirmación;
+        :Usuario accede al enlace recibido;
+        :Validar enlace de recuperación;
+
+        'Consulta si el enlace es válido
+        if (¿Enlace válido?) then (Sí)
+
+            'Realiza las siguientes tres actividades
+            :Mostrar formulario de nueva contraseña;
+            :Ingresar nueva contraseña;
+            :Validar contraseña;
+
+            'Ciclo de consulta para garantizar una contraseña correcta
+            while (¿Contraseña válida?) is (No)
+
+                :Mostrar error de contraseña;
+                :Solicitar nueva contraseña;
+                :Ingresar nueva contraseña;
+                :Validar contraseña;
+
+            endwhile (Sí)   /'Fin del ciclo'/
+
+            'Con la contraseña correcta se realizan las siguientes cuatro actividades
+            :Restablecer contraseña;
+            :Actualizar contraseña en la base de datos;
+            :Mostrar mensaje de éxito;
+            :Invalida enlace de recuperacion;
+
+            stop    /'Sale del proceso de actividades'/
+
+        else (No)
+
+            :Mostrar mensaje "Enlace expirado o inválido";  /'Enlace no valido'/
+            stop    /'Sale del proceso de actividades'/
+
+        endif
+
+    else (No)
+
+        :Mostrar error al enviar el correo;     /'Error de conexion del sitema'/
+        stop    /'Sale del proceso de actividades'/
+
+    endif
+
+else (No)
+
+    :Mostrar mensaje "Correo no registrado";    /'Correo no registrado en la BD'/
+    stop    /'Sale del proceso de actividades'/
+
+endif
+
+@enduml
